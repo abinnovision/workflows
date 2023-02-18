@@ -1,28 +1,29 @@
-# abinnovision/actions
+# abinnovision/workflows
 
-This repository contains a collection of GitHub Actions as a monorepo. This repository has been designed to provide a
-comprehensive set of actions that can be used to automate common development tasks and workflows. By organizing multiple
-actions in a single repository, we aim to make it easier for developers to find and use the tools they need to
-streamline their workflows
+This repository contains a collection of GitHub Actions Workflows. This repository has been designed to provide a
+comprehensive set of workflows that can be used to automate common development tasks and workflows.
 
-## Actions
+## Workflows
 
-These are the currently available actions:
+These are the currently available workflows:
 
-- [setup-gcp-authentication](./packages/setup-gcp-authentication): Setup the authentication for Google Cloud Platform.
-	This works nicely with our Service Account provisioning.
-- [get-github-app-token](./packages/get-github-app-token): TBD
+- [release-please](./.github/workflows/release-please.yaml): Wrapper around release-please, which takes care about
+	acquiring the GitHub App token.
 
 ## Usage
 
-All actions within this repository can be used in other repositories like this:
+All workflows within this repository can be used in other repositories like this:
 
 ```yaml
+# ...
 jobs:
   <job>:
-    steps:
-      - uses: abinnovision/actions/.<name of the action>@master
+    uses: abinnovision/workflows/.github/workflows/<workflow>.yaml@master
+    with:
+      input-key: input-value
+    secrets:
+      secret-key: secret-value
+# ...
 ```
 
-Each available action has a symlink in the root directory prefixed with a dot (`.`).
-Currently, there is no proper versioning of these actions, therefore we use `master` as ref. 
+Currently, there is no proper versioning of these workflows, therefore we use `master` as ref. 

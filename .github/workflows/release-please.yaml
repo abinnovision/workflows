@@ -1,0 +1,45 @@
+name: Release Please
+on:
+  workflow_call:
+    inputs:
+      gcp_identification:
+        type: string
+        required: true
+      command:
+        type: string
+        required: false
+        default: "manifest"
+    outputs:
+      releases_created:
+        description: ""
+        value: ${{ jobs.release.outputs.release_created }}
+      paths_released:
+        description: ""
+        value: ${{ jobs.release.outputs.paths_released }}
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+      paths_released: ${{ steps.release.outputs.paths_released }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Auth
+        uses: abinnovision/actions/.setup-gcp-authentication@master
+        with:
+          identification: ${{ inputs.gcp_identification }}
+      - id: token
+        name: Token
+        uses: abinnovision/actions/.get-github-app-token@master
+        with:
+          name: releaser
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          command: ${{ inputs.command }}
+          token: ${{ steps.token.outputs.token }}

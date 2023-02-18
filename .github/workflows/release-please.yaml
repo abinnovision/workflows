@@ -1,10 +1,10 @@
 name: Release Please
 on:
   workflow_call:
-    inputs:
+    secrets:
       gcp_identification:
-        type: string
         required: true
+    inputs:
       command:
         type: string
         required: false
@@ -32,7 +32,7 @@ jobs:
       - name: Auth
         uses: abinnovision/actions/.setup-gcp-authentication@master
         with:
-          identification: ${{ inputs.gcp_identification }}
+          identification: ${{ secrets.gcp_identification }}
       - id: token
         name: Token
         uses: abinnovision/actions/.get-github-app-token@master

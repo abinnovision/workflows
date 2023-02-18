@@ -4,18 +4,25 @@ on:
     secrets:
       gcp_identification:
         required: true
+        description: |-
+          The "GCP_IDENTIFICATION" secret which is present in all repositories.
     inputs:
       command:
         type: string
         required: false
         default: "manifest"
+        description: |-
+          release-please command to run. Defaults to 'manifest'.
     outputs:
       releases_created:
-        description: ""
         value: ${{ jobs.release.outputs.release_created }}
+        description: |-
+          If any releases have been created by release-please.
       paths_released:
-        description: ""
         value: ${{ jobs.release.outputs.paths_released }}
+        description: |-
+          JSON array which contains all paths which have been released.
+          Example: `["packages/package-a", "packages/package-b"]`
 jobs:
   release:
     name: Release
@@ -29,17 +36,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Auth
+      - name: Setup GCP Authentication
         uses: abinnovision/actions/.setup-gcp-authentication@master
         with:
           identification: ${{ secrets.gcp_identification }}
       - id: token
-        name: Token
+        name: Generate GitHub App token
         uses: abinnovision/actions/.get-github-app-token@master
         with:
           name: releaser
-      - uses: google-github-actions/release-please-action@v3
-        id: release
+      - id: release
+        name: Run release-please
+        uses: google-github-actions/release-please-action@v3
         with:
           command: ${{ inputs.command }}
           token: ${{ steps.token.outputs.token }}

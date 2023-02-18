@@ -1,6 +1,6 @@
 {
-	"name": "abinnovision-actions",
-	"repository": "git@github.com:abinnovision/commons.git",
+	"name": "abinnovision-workflows",
+	"repository": "git@github.com:abinnovision/workflows.git",
 	"version": "0.0.0-development",
 	"author": {
 		"name": "AB INNOVISION UG (limited liability)",
@@ -14,9 +14,6 @@
 		"node": ">=16"
 	},
 	"packageManager": "yarn@3.4.1",
-	"workspaces": [
-		"packages/*"
-	],
 	"devDependencies": {
 		"@commitlint/cli": "^17.4.2",
 		"@commitlint/config-angular": "^17.4.2",
@@ -30,8 +27,7 @@
 		"prettier:check": "prettier --ignore-path .gitignore --check '**/*.{json,json5,yaml,yml}'",
 		"prettier:fix": "prettier --ignore-path .gitignore --write '**/*.{json,json5,yaml,yml}'",
 		"vale:check": "vale **/*.md",
-		"postinstall": "husky install && vale sync",
-		"link": "ls packages | while read package; do ln -s \"packages/$package\" \".$package\"; done"
+		"postinstall": "husky install && vale sync"
 	},
 	"lint-staged": {
 		"**/*.{json,json5,yaml,yml,md}": [

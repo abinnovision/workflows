@@ -2,10 +2,10 @@ name: Release Please
 on:
   workflow_call:
     secrets:
-      gcp_identification:
+      GCP_IDENTIFICATION:
         required: true
-        description: |-
-          The "GCP_IDENTIFICATION" secret which is present in all repositories.
+      GH_APP_IDENTIFICATION_RELEASER:
+        required: true
     inputs:
       command:
         type: string
@@ -39,12 +39,12 @@ jobs:
       - name: Setup GCP Authentication
         uses: abinnovision/actions/.setup-gcp-authentication@master
         with:
-          identification: ${{ secrets.gcp_identification }}
+          identification: ${{ secrets.GCP_IDENTIFICATION }}
       - id: token
         name: Generate GitHub App token
         uses: abinnovision/actions/.get-github-app-token@master
         with:
-          name: releaser
+          identification: ${{ secrets.GH_APP_IDENTIFICATION_RELEASER }}
       - id: release
         name: Run release-please
         uses: google-github-actions/release-please-action@v3

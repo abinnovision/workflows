@@ -15,7 +15,7 @@ on:
           release-please command to run. Defaults to 'manifest'.
     outputs:
       releases_created:
-        value: ${{ jobs.release.outputs.release_created }}
+        value: ${{ jobs.release.outputs.releases_created }}
         description: |-
           If any releases have been created by release-please.
       paths_released:

@@ -37,12 +37,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup GCP Authentication
-        uses: abinnovision/actions/.setup-gcp-authentication@master
+        uses: abinnovision/actions/actions/setup-gcp-authentication@master
         with:
           identification: ${{ secrets.GCP_IDENTIFICATION }}
       - id: token
         name: Generate GitHub App token
-        uses: abinnovision/actions/.get-github-app-token@master
+        uses: abinnovision/actions/actions/get-github-app-token@master
         with:
           identification: ${{ secrets.GH_APP_IDENTIFICATION_RELEASER }}
       - id: release

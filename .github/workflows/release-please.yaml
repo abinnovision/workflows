@@ -5,6 +5,10 @@ on:
       GH_APP_IDENTIFICATION_RELEASER:
         required: true
     inputs:
+      gcp-auth:
+        type: string
+        required: true
+        default: ${{ vars.GCP_AUTH }}
       command:
         type: string
         required: false
@@ -37,7 +41,7 @@ jobs:
       - name: Setup GCP Authentication
         uses: abinnovision/actions/actions/setup-gcp@master
         with:
-          auth: ${{ vars.GCP_AUTH }}
+          auth: ${{ inputs.gcp-auth }}
       - id: token
         name: Generate GitHub App token
         uses: abinnovision/actions/actions/get-github-app-token@master

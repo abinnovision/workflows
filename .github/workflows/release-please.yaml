@@ -7,7 +7,7 @@ on:
     inputs:
       gcp-auth:
         type: string
-        required: true
+        required: false
         default: ${{ vars.GCP_AUTH }}
       command:
         type: string

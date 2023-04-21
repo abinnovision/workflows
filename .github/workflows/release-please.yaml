@@ -2,8 +2,6 @@ name: Release Please
 on:
   workflow_call:
     secrets:
-      GCP_IDENTIFICATION:
-        required: true
       GH_APP_IDENTIFICATION_RELEASER:
         required: true
     inputs:
@@ -25,7 +23,7 @@ on:
           Example: `["packages/package-a", "packages/package-b"]`
 jobs:
   release:
-    name: Release
+    name: release-please
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -37,9 +35,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup GCP Authentication
-        uses: abinnovision/actions/actions/setup-gcp-authentication@master
-        with:
-          identification: ${{ secrets.GCP_IDENTIFICATION }}
+        uses: abinnovision/actions/actions/setup-gcp@master
       - id: token
         name: Generate GitHub App token
         uses: abinnovision/actions/actions/get-github-app-token@master

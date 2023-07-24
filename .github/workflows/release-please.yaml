@@ -15,6 +15,12 @@ on:
         default: "manifest"
         description: |-
           release-please command to run. Defaults to 'manifest'.
+      default-branch:
+        type: string
+        required: false
+        default: ""
+        description: |-
+          branch to open pull release PR against (Defaults to the repository default branch).
     outputs:
       releases_created:
         value: ${{ jobs.release.outputs.releases_created }}
@@ -52,4 +58,5 @@ jobs:
         uses: google-github-actions/release-please-action@v3
         with:
           command: ${{ inputs.command }}
+          default-branch: ${{ inputs.default-branch }}
           token: ${{ steps.token.outputs.token }}

@@ -1,42 +1,44 @@
 {
 	"name": "abinnovision-workflows",
-	"repository": "git@github.com:abinnovision/workflows.git",
 	"version": "0.0.0-development",
+	"private": true,
+	"repository": "git@github.com:abinnovision/workflows.git",
+	"license": "Apache-2.0",
 	"author": {
-		"name": "AB INNOVISION UG (limited liability)",
+		"name": "AB INNOVISION GmbH",
 		"email": "info@abinnovision.com",
 		"url": "https://abinnovision.com/"
 	},
-	"private": true,
-	"license": "proprietary",
-	"engineStrict": true,
-	"engines": {
-		"node": ">=16"
-	},
-	"packageManager": "yarn@3.4.1",
-	"devDependencies": {
-		"@abinnovision/commitlint-config": "^1.0.2",
-		"@abinnovision/prettier-config": "^1.0.0",
-		"@commitlint/cli": "^17.4.2",
-		"@commitlint/config-conventional": "^17.4.4",
-		"husky": "^8.0.0",
-		"lint-staged": "^13.1.0",
-		"prettier": "^2.8.3"
-	},
 	"scripts": {
-		"prettier:check": "prettier --ignore-path .gitignore --check '**/*.{json,json5,yaml,yml}'",
-		"prettier:fix": "prettier --ignore-path .gitignore --write '**/*.{json,json5,yaml,yml}'",
-		"postinstall": "husky install"
-	},
-	"lint-staged": {
-		"**/*.{json,json5,yaml,yml,md}": [
-			"prettier"
-		]
+		"postinstall": "husky install",
+		"prettier:check": "prettier --ignore-path .gitignore --check '{*,.github/**/*}.{json,json5,yaml,yml,md}'",
+		"prettier:fix": "prettier --ignore-path .gitignore --write '{*,.github/**/*}.{json,json5,yaml,yml,md}'",
+		"sort:check": "sort-package-json 'actions/**!(node_modules)/package.json' 'package.json' --check",
+		"sort:fix": "sort-package-json 'actions/**!(node_modules)/package.json' 'package.json'"
 	},
 	"commitlint": {
 		"extends": [
 			"@abinnovision/commitlint-config"
 		]
 	},
-	"prettier": "@abinnovision/prettier-config"
+	"lint-staged": {
+		"{*,.github/**/*}.{json,json5,yaml,yml,md}": [
+			"prettier --write"
+		],
+		"**/package.json": [
+			"sort-package-json"
+		]
+	},
+	"prettier": "@abinnovision/prettier-config",
+	"devDependencies": {
+		"@abinnovision/commitlint-config": "^2.2.1",
+		"@abinnovision/prettier-config": "^2.1.3",
+		"@commitlint/cli": "^19.7.1",
+		"@commitlint/config-conventional": "^19.7.1",
+		"husky": "^9.1.7",
+		"lint-staged": "^15.4.3",
+		"prettier": "^3.5.1",
+		"sort-package-json": "^2.14.0"
+	},
+	"packageManager": "yarn@4.6.0"
 }

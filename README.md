@@ -8,7 +8,7 @@ comprehensive set of workflows that can be used to automate common development t
 These are the currently available workflows:
 
 - [release-please](./.github/workflows/release-please.yaml): Wrapper around release-please, which takes care about
-	acquiring the GitHub App token.
+  acquiring the GitHub App token.
 
 ## Usage
 
@@ -26,4 +26,4 @@ jobs:
 # ...
 ```
 
-Currently, there is no proper versioning of these workflows, therefore we use `master` as ref. 
+Currently, there is no proper versioning of these workflows, therefore we use `master` as ref.
